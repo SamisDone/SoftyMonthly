@@ -40,15 +40,30 @@ function balanceColumns(items: Item[]): [Item[], Item[]] {
   return columns
 }
 
+/**
+ * Split into evenly sized groups of roughly `size`, earlier groups taking any
+ * extras, so there's never a lonely last group (49 by 12 -> 13, 12, 12, 12).
+ */
+function evenGroups<T>(items: T[], size: number): T[][] {
+  const count = Math.max(1, Math.round(items.length / size))
+  const base = Math.floor(items.length / count)
+  const extra = items.length % count
+  const groups: T[][] = []
+  let start = 0
+  for (let group = 0; group < count; group++) {
+    const length = base + (group < extra ? 1 : 0)
+    groups.push(items.slice(start, start + length))
+    start += length
+  }
+  return groups.filter((group) => group.length > 0)
+}
+
 // The photo list comes from the folder at build time, so lay it out once
 const PHOTOS = getSpreadPhotos()
-const GROUPS = Array.from({ length: Math.ceil(PHOTOS.length / photoSpread.groupSize) }, (_, group) => {
-  const items = PHOTOS.slice(group * photoSpread.groupSize, (group + 1) * photoSpread.groupSize).map((photo, i) => ({
-    photo,
-    index: group * photoSpread.groupSize + i,
-  }))
-  return { letter: String.fromCharCode(65 + group), columns: balanceColumns(items) }
-})
+const GROUPS = evenGroups(
+  PHOTOS.map((photo, index) => ({ photo, index })),
+  photoSpread.groupSize,
+).map((items, group) => ({ letter: String.fromCharCode(65 + group), columns: balanceColumns(items) }))
 
 function PhotosPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)

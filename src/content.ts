@@ -107,8 +107,8 @@ export const cover = {
    */
   photoFocus: '70% 30%',
   headlines: [
-    { kicker: 'Exclusive', text: 'Local man too cute. Scientists baffled.' },
-    { kicker: 'p. 07', text: '10 things she loves about him (she ran out of room)' },
+    { kicker: 'Exclusive', text: 'Local man too cute. Have to hide from everyone.' },
+    { kicker: 'p. 07', text: '10 things she loves about him (she ran out of room, not enough space)' },
     { kicker: 'Quiz', text: 'How well do you REALLY know us?' },
     { kicker: 'Inside', text: 'The interview he never agreed to' },
   ],
@@ -136,10 +136,10 @@ export const letter = {
   paragraphs: [
     "Welcome to the very first issue of the only magazine where you are the cover star, the feature story, and the entire subscriber list. Our research team (me) worked very hard on this.",
     "Happy Boyfriend's Day. I wanted to make you something you could hold in your pocket and flip through whenever you need a reminder of how loved you are. So here it is: a whole magazine about my favorite topic.",
-    'Thank you for the late-night talks, the terrible jokes, the way you always save me the last bite, and for being my calm place when the world is loud. You make ordinary days feel like a special edition.',
+    'Thank you for the late-night talks, the terrible jokes, the wonderful hugs, the cute kisses, the way you always feed me, and for being my calm place when the world is loud. You make ordinary days feel like a special edition (get it?).',
     'Turn the page, babe. There is a lot more where this came from.',
   ],
-  signoff: 'Forever your biggest fan,',
+  signoff: 'Forever your biggest (and the only one because I will fight others) fan,',
   signature: 'Tanu',
   ps: 'P.S. Yes, there is a quiz. Yes, it counts.',
   skipLabel: 'skip ahead',
@@ -167,14 +167,14 @@ export const story = {
   byline: 'Words by Tanu · Photography by whoever we handed the phone to',
   // EDIT: tell your real story. Each string is one paragraph.
   before: [
-    'It started like most great stories do: completely by accident. Nobody planned it, nobody saw it coming, and nobody was wearing their best outfit.',
-    "There was a conversation that went on longer than it needed to. Then another one. Somewhere between the small talk and the big laughs, our reporter noticed something suspicious: she didn't want it to end.",
+    'Well we both know how it started. One swipe. Random answer of a random question. Two ghosts (ignoring the part where I ghosted you. GET OVER IT. I FORGOT THAT I DID NOT REPLY.) And then somehow along the way two persons who almost had the same experience all over started making sense to each other. And boom, here we are.',
+    "I am glad I replied. I am glad you replied. I am glad we met. I am glad we are still here: still together, still in love, still us. And most importantly, I am glad we are still making each other happy, making each other laugh, and making each other feel loved. Last but not the least, I am glad you are my BOYFRIEND.",
   ],
-  pullQuote: 'I remember thinking: oh no, I really like this one.',
+  pullQuote: 'I remember thinking: oh no, I really like this one. Mera to katne wala hai.',
   after: [
-    'Sources close to the couple confirm that the first date involved nerves, too much talking, and at least one moment of very obvious staring.',
-    "Since then, the two have been spotted sharing food, finishing each other's sentences, and arguing over who loves who more. (For the record, it's Tanu.)",
-    'Experts agree: this is the best thing that has ever happened. The investigation is ongoing and expected to last forever.',
+    'Sources close to the couple(me) confirm that the first date involved nerves, too much talking, and at least one moment of very obvious staring. And then, umm... Anyways.',
+    "Since then, the two have been spotted sharing food, finishing each other's sentences, and arguing over the ragebaits that most definitely works on me.",
+    'Experts agree: this is the best thing that has ever happened. The investigation is ongoing and expected to last forever.And in case it so happens that it might not last forever, Tanu has confirmed she is going to kidnap him and keep him in a cage. So, you know, it is going to last forever.',
   ],
   photo: {
     src: '/photos/photo3.jpg', // EDIT: an early photo of you two
@@ -192,7 +192,11 @@ export const photoSpread = {
   /** Shown after the photo count, e.g. "49 photos of proof that we are cute" */
   countLabel: 'photos of proof that we are cute',
   hint: 'tap a photo to make it big, then swipe through',
-  /** Photos are grouped a dozen at a time: "Exhibit A", "Exhibit B", ... */
+  /**
+   * Photos are grouped "Exhibit A", "Exhibit B", ... with about this many in
+   * each. Groups are evened out so none is left with a lonely straggler
+   * (49 photos -> 13, 12, 12, 12).
+   */
   groupLabel: 'Exhibit',
   groupSize: 12,
   /** Handwritten notes tucked between the groups (they repeat if there are more groups) */
