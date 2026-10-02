@@ -174,9 +174,9 @@ export const story = {
   ],
   pullQuote: 'I remember thinking: oh no, I really like this one. Mera to katne wala hai.',
   after: [
-    'Sources close to the couple(me) confirm that the first date involved nerves, too much talking, and at least one moment of very obvious staring. And then, umm... Anyways.',
-    "Since then, the two have been spotted sharing food, finishing each other's sentences, and arguing over the ragebaits that most definitely works on me.",
-    'Experts agree: this is the best thing that has ever happened. The investigation is ongoing and expected to last forever.And in case it so happens that it might not last forever, Tanu has confirmed she is going to kidnap him and keep him in a cage. So, you know, it is going to last forever.',
+    'Sources close to the couple (me) confirm that the first date involved nerves, too much talking, and at least one moment of very obvious staring. And then, umm... Anyways.',
+    "Since then, the two have been spotted sharing food, finishing each other's sentences, and arguing over the ragebaits that most definitely work on me.",
+    'Experts agree: this is the best thing that has ever happened. The investigation is ongoing and expected to last forever. And in case it so happens that it might not last forever, Tanu has confirmed she is going to kidnap him and keep him in a cage. So, you know, it is going to last forever.',
   ],
   photo: {
     src: '/photos/photo3.jpg', // EDIT: an early photo of you two
@@ -233,12 +233,12 @@ export const interview = {
     "We sat down with Pratik for a rare, exclusive conversation. He did not know this was an interview. Here's what he said (according to our very reliable memory).",
   // EDIT: questions and his (real or imagined) answers
   questions: [
-    { q: 'Describe your perfect Sunday.', a: 'Sleeping in, good food, zero alarms, and Tanu stealing the blanket. Apparently that last part is non-negotiable.' },
+    { q: 'Describe your life before Tanu.', a: 'My life was filled with darkness, and there she was, a complete ray of sunshine. I keep thanking my stars that she exists. Oh what I would have done without her. (Note from the editor: I dare you to defy me).' },
     { q: 'What was your first impression of Tanu?', a: '"Oh, she\'s trouble." He was correct.' },
-    { q: 'What is your most controversial opinion?', a: 'Redacted by our legal team. You know the one.' },
-    { q: "What's something nobody knows about you?", a: 'He is secretly a huge softie. Well, everybody knows now. Sorry, babe.' },
-    { q: 'Who is funnier, you or Tanu?', a: 'He said himself. The editor would like to file a formal complaint.' },
-    { q: 'Any last words for our readers?', a: '"Is this going to be printed?" Yes, Pratik. In an edition of one.' },
+    { q: 'Why do you hate Tanu?', a: 'I don\'t hate her. She keeps thinking I do. Not her fault tho. It\'s okay, I am used to it.' },
+    { q: "What happened on 19th October, 2025?", a: '(He didn\'t answer. He pressed his temple and sighed.)' },
+    { q: 'Who is funnier, you or Tanu?', a: 'He said himself. (The editor would like to file a formal complaint.)' },
+    { q: 'You hate Tanu.', a: 'Huh?' },
   ],
 }
 
@@ -253,16 +253,16 @@ export const top10 = {
   hint: 'tap one to give it a heart',
   // EDIT: your 10 things
   items: [
-    'The way you laugh at your own jokes before you even finish them.',
+    'The way your nose scrunches when you laugh. I love it so much.',
     'How you always know when I need a hug, even before I do.',
-    'Your terrible singing in the car. Please never stop.',
+    'Whenever we meet, you greet me with a kiss on my forehead. Golei jai ami.',
     'That you remember the tiny things I mention once.',
     'Your hands. Especially when they are holding mine.',
-    'How calm you stay when I am being dramatic.',
+    'How calm you stay when I am being dramatic. I mean I know I piss you off. Tor jaygay ami thakle ami martam nijeke.',
     'Your face when you are concentrating really hard.',
-    'You always save me the last bite (mostly).',
-    'The way you say my name.',
-    'That you are my best friend and my favorite person, at the same time.',
+    'You making sure I EAT EAT. Not just eat. Calling me and scolding me for not drinking water hehe. Love it.',
+    'I KNOW HOW TO CROSS THE ROAD. But I love it when you hold my hand so tightly when we are crossing the road.',
+    'That I get to call you mine.',
   ],
 }
 
@@ -282,20 +282,20 @@ export const ads = {
   items: [
     {
       brand: 'PRATIK-NAP™',
-      headline: 'The 5-Minute Nap.',
+      headline: 'The Nap after you-know-what.',
       tagline: 'Results may last 3 hours.',
-      body: 'Clinically proven to happen anywhere: the couch, the car, the middle of a movie he picked.',
+      body: 'Clinically proven to happen anywhere, any time.',
       cta: 'Do not disturb',
       fine: '*Waking him up voids all warranties.',
       tone: 'butter',
     },
     {
       brand: 'TANU & CO.',
-      headline: 'Hugs on Demand',
+      headline: 'Hugs and Kisses on Demand',
       tagline: 'Now with unlimited refills!',
-      body: 'Feeling tired? Grumpy? Hungry? One hug cures all known conditions. No subscription required.',
+      body: 'Feeling tired? Grumpy? Hungry? One hug and one kiss cures all known conditions. No subscription required.',
       cta: 'Redeem anytime',
-      fine: '*Valid forever. Non-transferable. Only one customer, ever.',
+      fine: '*Valid forever. Non-transferable. Only one customer, ever. No refunds.',
       tone: 'periwinkle',
     },
   ] satisfies {
@@ -320,8 +320,8 @@ export const quiz = {
   questions: [
     {
       question: 'Where did we first meet?',
-      options: ['Through friends', 'Online', 'At school or work', 'Destiny (and Wi-Fi)'],
-      answer: 0,
+      options: ['Through friends', 'Bumble', 'At school or work', 'Destiny (and Wi-Fi)'],
+      answer: 1,
     },
     {
       question: "What's Tanu's go-to comfort food?",
@@ -329,18 +329,18 @@ export const quiz = {
       answer: 3,
     },
     {
-      question: 'Who said "I love you" first?',
-      options: ['Pratik', 'Tanu', 'At the same time', "We're still arguing about it"],
-      answer: 3,
+      question: 'Who is the best?',
+      options: ['Pratik', 'Tanu', 'None', "Bilai"],
+      answer: 0,
     },
     {
       question: 'What is our favorite thing to do together?',
-      options: ['Long walks', 'Movie nights', 'Eating our way through the city', 'Literally anything'],
+      options: ['Long walks', 'Date nights', 'Eating our way through the city', 'Literally anything'],
       answer: 3,
     },
     {
       question: 'How much does Tanu love you?',
-      options: ['A lot', 'A whole lot', 'More than pizza', 'Too much to fit in a magazine'],
+      options: ['A lot', 'A whole lot', 'More than Iced Mocha', 'Too much to fit in a magazine'],
       answer: 3,
     },
   ],
@@ -367,8 +367,8 @@ export const backCover = {
   heartLabel: 'Tap the heart for more confetti',
   title: "Happy Boyfriend's Day",
   message:
-    "Thank you for being you. For every laugh, every hug, and every ordinary day you've made feel special. I love you more than this whole magazine could ever say.",
-  signature: 'Yours always, Tanu',
+    "Thank you, Pratik. For everything. For every laugh, every hug, and every ordinary day you've made feel special, and for staying. I love you more than this whole magazine could ever say. This magazine is just a way to tell you that you are special. I don't know if you like it or not. But nonetheless, I love you. And never ever think you are alone. I will always stay by you, and I am never going to leave you alone (up to you to think whether it's a threat or a promise). I love you, and nothing in this world can ever change that. You don't have to fight anything alone. We will figure everything out together. I promise.",
+  signature: 'Yours only, Tanu',
   footer: 'Printed with love, in an edition of one.',
   replayLabel: 'Read it again',
 }

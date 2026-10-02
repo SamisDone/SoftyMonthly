@@ -116,11 +116,11 @@ function CoverPage() {
         </ul>
 
         <div className="mt-[clamp(0.6rem,2.4cqh,1.25rem)] flex shrink-0 items-end justify-between gap-3">
-          <Button size="lg" onClick={openMagazine} className="text-lg">
+          <Button size="lg" onClick={openMagazine} className="min-w-0 px-5 text-[clamp(1rem,4.6vw,1.125rem)] min-[380px]:px-7">
             {cover.openButton}
             <ChevronRight strokeWidth={3} />
           </Button>
-          <div className="flex flex-col items-end gap-1 rounded-lg border-2 border-ink bg-paper p-1 shadow-hard-sm">
+          <div className="flex shrink-0 flex-col items-end gap-1 rounded-lg border-2 border-ink bg-paper p-1 shadow-hard-sm">
             <Barcode />
             <span className="px-0.5 text-[0.6rem] font-extrabold tracking-[0.16em] uppercase">{magazine.price}</span>
           </div>

@@ -50,7 +50,9 @@ function LetterPage() {
   return (
     <Page tone="sage">
       <div className="flex items-center justify-between gap-3">
-        <PageKicker number="03">{letter.kicker}</PageKicker>
+        <PageKicker number="03" className="min-w-0 shrink">
+          {letter.kicker}
+        </PageKicker>
         <button
           type="button"
           onClick={skip}
@@ -68,7 +70,7 @@ function LetterPage() {
           photo={letter.photo}
           rotate={7}
           tape="periwinkle"
-          className="float-right -mt-12 -mr-4 mb-3 ml-3 w-32 p-1.5 [&_figcaption]:text-base"
+          className="float-right -mt-12 -mr-4 mb-3 ml-3 w-28 p-1.5 [&_figcaption]:text-base"
         />
 
         {/* Screen readers get the whole letter at once; the animated copy below is decorative */}

@@ -46,58 +46,49 @@ function BackCoverPage() {
   }, [])
 
   return (
-    <Page tone="periwinkle" dotted fit className="items-center text-center">
+    // A scrolling page: the closing message is a real letter, too long to squeeze onto one screen
+    <Page tone="periwinkle" dotted className="flex flex-col items-center text-center">
       <PageKicker number="10" className="self-start">
         {backCover.kicker}
       </PageKicker>
 
-      {/* The heart takes whatever height is left (up to its full size) */}
-      <div className="flex min-h-20 w-full flex-1 items-center justify-center @container-size">
-        <div className="relative">
-          <Sparkle className="absolute -top-2 -left-6 size-9 animate-float" color="var(--butter)" />
-          <Star className="absolute top-8 -right-8 size-10 animate-wobble [--tilt:-12deg]" />
-          <m.button
+      <div className="relative mt-6">
+        <Sparkle className="absolute -top-2 -left-6 size-9 animate-float" color="var(--butter)" />
+        <Star className="absolute top-8 -right-8 size-10 animate-wobble [--tilt:-12deg]" />
+        <m.button
           type="button"
           onClick={burst}
           aria-label={backCover.heartLabel}
-            className="block rounded-full"
-            animate={{ scale: [1, 1.08, 1, 1.05, 1] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-            whileTap={{ scale: 0.85 }}
-          >
-            <Heart className="size-[min(13rem,88cqh)] drop-shadow-[5px_5px_0_var(--ink)]" />
-          </m.button>
-        </div>
+          className="block rounded-full"
+          animate={{ scale: [1, 1.08, 1, 1.05, 1] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+          whileTap={{ scale: 0.85 }}
+        >
+          <Heart className="size-44 drop-shadow-[5px_5px_0_var(--ink)]" />
+        </m.button>
       </div>
 
-      <h1 className="mt-[clamp(0.25rem,1.4cqh,1rem)] shrink-0 font-display text-[clamp(1.9rem,6cqh,2.7rem)] leading-[0.95] font-black tracking-tight">
-        {backCover.title}
-      </h1>
-      <Squiggle className="mt-[clamp(0.4rem,1.4cqh,0.75rem)] shrink-0" />
-      <p className="mt-[clamp(0.5rem,1.8cqh,1rem)] max-w-sm shrink-0 rounded-3xl border-2 border-ink bg-paper p-[clamp(0.75rem,2.6cqh,1.25rem)] text-[clamp(0.92rem,2.5cqh,1.05rem)] leading-snug font-semibold shadow-hard">
+      <h1 className="mt-4 font-display text-[2.6rem] leading-[0.95] font-black tracking-tight">{backCover.title}</h1>
+      <Squiggle className="mt-3" />
+      {/* Left-aligned so a long message reads easily; line breaks (\n) in content.ts are kept */}
+      <p className="mt-5 max-w-sm rounded-3xl border-2 border-ink bg-paper p-5 text-left text-[1.05rem] leading-relaxed font-semibold whitespace-pre-line shadow-hard">
         {backCover.message}
       </p>
-      <p className="mt-[clamp(0.5rem,2cqh,1.25rem)] shrink-0 -rotate-2 font-hand text-[clamp(1.8rem,5cqh,2.25rem)] leading-none font-bold text-cherry">
-        {backCover.signature}
-      </p>
+      <p className="mt-6 -rotate-2 font-hand text-4xl leading-none font-bold text-cherry">{backCover.signature}</p>
 
-      <Button asChild variant="secondary" size="lg" className="mt-[clamp(0.6rem,2.4cqh,1.75rem)] shrink-0">
+      <Button asChild variant="secondary" size="lg" className="mt-7">
         <Link to="/">
           <RotateCcw strokeWidth={3} />
           {backCover.replayLabel}
         </Link>
       </Button>
 
-      {/* The tagline always shows (the heart above shrinks to make room); the
-          small print joins it when there's space */}
-      <footer className="mt-[clamp(0.5rem,2.4cqh,1.75rem)] max-w-sm shrink-0">
+      <footer className="mt-9 max-w-sm">
         <p className="font-hand text-xl leading-tight font-bold">{magazine.tagline}</p>
-        <div className="[@container(max-height:700px)]:hidden">
-          <p className="mt-2 text-[0.66rem] font-extrabold tracking-[0.18em] uppercase">
-            {magazine.name} {magazine.nameSuffix} · {magazine.issue}
-          </p>
-          <p className="mt-1 font-hand text-lg text-ink-soft">{backCover.footer}</p>
-        </div>
+        <p className="mt-3 text-[0.66rem] font-extrabold tracking-[0.18em] uppercase">
+          {magazine.name} {magazine.nameSuffix} · {magazine.issue}
+        </p>
+        <p className="mt-1 font-hand text-lg text-ink-soft">{backCover.footer}</p>
       </footer>
     </Page>
   )

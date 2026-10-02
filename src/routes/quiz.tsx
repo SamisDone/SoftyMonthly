@@ -14,6 +14,17 @@ export const Route = createFileRoute('/quiz')({
 
 const total = quiz.questions.length
 
+// Catch a typo'd `answer` in content.ts while editing (it would make a question unwinnable)
+if (import.meta.env.DEV) {
+  quiz.questions.forEach(({ question, options, answer }, i) => {
+    if (!Number.isInteger(answer) || answer < 0 || answer >= options.length) {
+      console.warn(
+        `content.ts, quiz question ${i + 1} ("${question}"): answer is ${answer}, but it must be 0 to ${options.length - 1} (counting options from 0).`,
+      )
+    }
+  })
+}
+
 function QuizPage() {
   const [step, setStep] = useState(0)
   const [picked, setPicked] = useState<number | null>(null)
