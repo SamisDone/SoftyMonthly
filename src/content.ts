@@ -201,6 +201,12 @@ export const photoSpread = {
    */
   groupLabel: 'Exhibit',
   groupSize: 12,
+  /**
+   * The order the groups appear in, by their letters in plain number order.
+   * ['A', 'B', 'D', 'C'] shows D's photos before C's (labels still read A, B, C, D
+   * top to bottom). Any group you leave out goes at the end.
+   */
+  groupOrder: ['A', 'B', 'D', 'C'] as string[],
   /** Handwritten notes tucked between the groups (they repeat if there are more groups) */
   notes: [
     'okay, a few more...',

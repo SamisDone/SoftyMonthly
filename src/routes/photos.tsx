@@ -58,12 +58,27 @@ function evenGroups<T>(items: T[], size: number): T[][] {
   return groups.filter((group) => group.length > 0)
 }
 
+/**
+ * Reorder groups by letter (as they'd be in plain number order). Unknown or
+ * repeated letters are ignored; groups not mentioned keep their place at the end.
+ */
+function orderGroups<T>(groups: T[][], order: readonly string[]): T[][] {
+  const wanted = order
+    .map((letter) => letter.trim().toUpperCase().charCodeAt(0) - 65)
+    .filter((index, i, all) => index >= 0 && index < groups.length && all.indexOf(index) === i)
+  const rest = groups.map((_, index) => index).filter((index) => !wanted.includes(index))
+  return [...wanted, ...rest].map((index) => groups[index])
+}
+
 // The photo list comes from the folder at build time, so lay it out once
-const PHOTOS = getSpreadPhotos()
-const GROUPS = evenGroups(
-  PHOTOS.map((photo, index) => ({ photo, index })),
-  photoSpread.groupSize,
-).map((items, group) => ({ letter: String.fromCharCode(65 + group), columns: balanceColumns(items) }))
+const ORDERED_GROUPS = orderGroups(evenGroups(getSpreadPhotos(), photoSpread.groupSize), photoSpread.groupOrder)
+/** Display order: the lightbox swipes through photos exactly as they appear on the page */
+const PHOTOS = ORDERED_GROUPS.flat()
+const GROUPS = ORDERED_GROUPS.map((photos, group) => {
+  const offset = ORDERED_GROUPS.slice(0, group).reduce((count, previous) => count + previous.length, 0)
+  const items = photos.map((photo, i) => ({ photo, index: offset + i }))
+  return { letter: String.fromCharCode(65 + group), columns: balanceColumns(items) }
+})
 
 function PhotosPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
