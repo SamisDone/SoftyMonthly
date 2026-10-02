@@ -3,6 +3,7 @@ import tailwindcss from '@tailwindcss/vite'
 import { tanstackRouter } from '@tanstack/router-plugin/vite'
 import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vite'
+import { photosPlugin } from './vite-plugins/photos.ts'
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -11,6 +12,8 @@ export default defineConfig({
     tanstackRouter({ target: 'react', autoCodeSplitting: true }),
     react(),
     tailwindcss(),
+    // Real photo sizes + small previews for public/photos (see the file for details)
+    photosPlugin(),
   ],
   resolve: {
     alias: {

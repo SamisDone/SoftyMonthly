@@ -5,11 +5,12 @@
  *  Change any text below and the magazine updates. You never need
  *  to touch the components.
  *
- *  Photos: drop your images into /public/photos using the file names
- *  below (photo1.jpg, photo2.jpg, ...). Any photo that is missing
- *  shows a cute colored placeholder, so nothing ever breaks.
- *  Tip: resize photos to ~1200px on the long side and save as JPG
- *  (quality ~75) so the magazine loads fast on mobile data.
+ *  Photos: drop your images into /public/photos (photo1.jpg,
+ *  photo2.jpg, ...). Photos 1-3 are used on the cover, letter and
+ *  story (set below); EVERY other photo in the folder appears in the
+ *  photo spread automatically, in number order. Small previews are
+ *  made for you so it loads fast on mobile data. A missing photo shows
+ *  a cute colored placeholder, so nothing ever breaks.
  *
  *  Lines marked "EDIT:" are the ones that need your real details.
  */
@@ -17,12 +18,11 @@ import type { PagePath } from '@/lib/pages'
 
 export type AdTone = 'butter' | 'periwinkle' | 'sage'
 
+/** A photo from /public/photos. Its real size is read from the file automatically. */
 export type Photo = {
   src: string
+  /** Describes the photo for screen readers */
   alt: string
-  /** Intrinsic size of the image. Used for aspect ratio, so the layout never jumps. */
-  width: number
-  height: number
   caption?: string
 }
 
@@ -41,7 +41,7 @@ export const magazine = {
   name: 'Pratik',
   /** Little script word after the name in the top bar and browser tab */
   nameSuffix: 'monthly',
-  tagline: 'The only magazine with exactly one subscriber',
+  tagline: 'The only magazine with exactly one subscriber. I dare you to have another one.',
   /** The banner under the masthead on the cover */
   edition: "Boyfriend's Day Special Edition",
   issue: 'Vol. 1, Issue 1',
@@ -99,8 +99,6 @@ export const cover = {
   photo: {
     src: '/photos/photo1.jpg', // EDIT: his best photo. A tall phone photo fills the cover best.
     alt: 'Pratik, looking unreasonably handsome',
-    width: 720,
-    height: 1280,
   } satisfies Photo,
   /**
    * The cover photo fills the whole page, so very different screen shapes may trim
@@ -154,8 +152,6 @@ export const letter = {
   photo: {
     src: '/photos/photo2.jpg', // EDIT: a photo of you two
     alt: 'Tanu and Pratik together',
-    width: 800,
-    height: 800,
     caption: 'the editor & her muse',
   } satisfies Photo,
 }
@@ -183,8 +179,6 @@ export const story = {
   photo: {
     src: '/photos/photo3.jpg', // EDIT: an early photo of you two
     alt: 'One of our first photos together',
-    width: 1200,
-    height: 900,
     caption: 'exhibit A: the early days',
   } satisfies Photo,
 }
@@ -193,20 +187,33 @@ export const story = {
 /*  05 · Photo spread                                           */
 /* ------------------------------------------------------------ */
 export const photoSpread = {
-  kicker: 'Exhibits A to F',
+  kicker: 'The evidence',
   title: 'The Photo Spread',
-  subtitle: 'Exhibits A through F: proof that we are cute',
-  hint: 'tap a photo to make it big',
+  /** Shown after the photo count, e.g. "49 photos of proof that we are cute" */
+  countLabel: 'photos of proof that we are cute',
+  hint: 'tap a photo to make it big, then swipe through',
+  /** Photos are grouped a dozen at a time: "Exhibit A", "Exhibit B", ... */
+  groupLabel: 'Exhibit',
+  groupSize: 12,
+  /** Handwritten notes tucked between the groups (they repeat if there are more groups) */
+  notes: [
+    'okay, a few more...',
+    'still not done. sorry not sorry',
+    'every single one of these is my favorite',
+    'the camera loves you. so do I.',
+  ],
   footer: 'more coming soon (we keep being cute)',
-  // EDIT: add/remove photos and change captions. Square-ish photos look best.
-  photos: [
-    { src: '/photos/photo4.jpg', alt: 'A favorite photo of us', width: 800, height: 800, caption: 'our first trip' },
-    { src: '/photos/photo5.jpg', alt: 'A silly photo of us', width: 800, height: 800, caption: 'peak silliness' },
-    { src: '/photos/photo6.jpg', alt: 'A cozy photo of us', width: 800, height: 800, caption: 'that one perfect day' },
-    { src: '/photos/photo7.jpg', alt: 'A candid photo of Pratik', width: 800, height: 800, caption: 'caught you smiling' },
-    { src: '/photos/photo8.jpg', alt: 'A food photo', width: 800, height: 800, caption: 'date night!' },
-    { src: '/photos/photo9.jpg', alt: 'A photo of us laughing', width: 800, height: 800, caption: 'my favorite face' },
-  ] satisfies Photo[],
+  /** Fallback description for screen readers when a photo has no caption */
+  defaultAlt: 'A photo of us',
+  /**
+   * EDIT (optional): captions for any photo, by file name. Photos without one
+   * get a classic blank polaroid edge. Example:
+   *   'photo7.jpg': 'that one perfect day',
+   */
+  captions: {} as Record<string, string>,
+  /** Lightbox buttons, for screen readers */
+  previousLabel: 'Previous photo',
+  nextLabel: 'Next photo',
 }
 
 /* ------------------------------------------------------------ */

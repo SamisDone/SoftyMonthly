@@ -88,11 +88,16 @@ function BackCoverPage() {
         </Link>
       </Button>
 
-      <footer className="mt-[clamp(0.5rem,2.4cqh,1.75rem)] shrink-0 text-[0.66rem] font-extrabold tracking-[0.18em] uppercase [@container(max-height:700px)]:hidden">
-        <p>
-          {magazine.name} {magazine.nameSuffix} · {magazine.issue}
-        </p>
-        <p className="mt-1 font-hand text-lg tracking-normal text-ink-soft normal-case">{backCover.footer}</p>
+      {/* The tagline always shows (the heart above shrinks to make room); the
+          small print joins it when there's space */}
+      <footer className="mt-[clamp(0.5rem,2.4cqh,1.75rem)] max-w-sm shrink-0">
+        <p className="font-hand text-xl leading-tight font-bold">{magazine.tagline}</p>
+        <div className="[@container(max-height:700px)]:hidden">
+          <p className="mt-2 text-[0.66rem] font-extrabold tracking-[0.18em] uppercase">
+            {magazine.name} {magazine.nameSuffix} · {magazine.issue}
+          </p>
+          <p className="mt-1 font-hand text-lg text-ink-soft">{backCover.footer}</p>
+        </div>
       </footer>
     </Page>
   )

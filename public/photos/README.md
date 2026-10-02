@@ -1,10 +1,10 @@
-Put your photos here (they are gitignored and never pushed to GitHub).
+Put your photos here. They are gitignored and never pushed to GitHub.
 
-| File       | Where it shows up                    |
-| ---------- | ------------------------------------ |
-| photo1.jpg | Cover (portrait works best)          |
-| photo2.jpg | Editor's letter                      |
-| photo3.jpg | Cover story (landscape works best)   |
-| photo4.jpg to photo9.jpg | Photo spread (square-ish)  |
+- photo1.jpg: the cover (a tall phone photo fills it best)
+- photo2.jpg: the editor's letter
+- photo3.jpg: the cover story
+- Every other photo here appears in the photo spread automatically, in number order.
 
-Missing photos show a colored placeholder. File names and captions live in src/content.ts.
+Captions are optional and live in src/content.ts (photoSpread.captions, by file name).
+Small previews are generated into thumbs/ automatically, so there's nothing to resize.
+A missing photo shows a colored placeholder instead of breaking.
