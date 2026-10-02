@@ -142,6 +142,8 @@ export const letter = {
   signoff: 'Forever your biggest (and the only one because I will fight others) fan,',
   signature: 'Tanu',
   ps: 'P.S. Yes, there is a quiz. Yes, it counts.',
+  /** The very last line the pen writes. Leave it empty ('') to hide it. */
+  pps: "P.P.S. And don't forget 19th October, 2025. We will see what happens that day this year. I did not forget and I won't let you forget 😈🔪",
   skipLabel: 'skip ahead',
   /**
    * How fast the letter writes itself: milliseconds per letter. Lower is faster.

@@ -14,12 +14,13 @@ export const Route = createFileRoute('/letter')({
 })
 
 /** Everything the pen writes, in order. */
-const SEGMENTS = [letter.greeting, ...letter.paragraphs, letter.signoff, letter.signature, letter.ps]
+const SEGMENTS = [letter.greeting, ...letter.paragraphs, letter.signoff, letter.signature, letter.ps, letter.pps]
 const GREETING = 0
 const FIRST_PARAGRAPH = 1
 const SIGNOFF = FIRST_PARAGRAPH + letter.paragraphs.length
 const SIGNATURE = SIGNOFF + 1
 const PS = SIGNATURE + 1
+const PPS = PS + 1
 
 // The letter writes itself the first time it's opened; after that it's simply there.
 let hasBeenWritten = false
@@ -80,6 +81,7 @@ function LetterPage() {
             {letter.signoff} {letter.signature}
           </p>
           <p>{letter.ps}</p>
+          {letter.pps && <p>{letter.pps}</p>}
         </div>
 
         <div aria-hidden>
@@ -106,6 +108,10 @@ function LetterPage() {
               </m.span>
             </p>
             <p className="mt-5 font-hand text-2xl leading-tight text-ink-soft">{ink(PS)}</p>
+            {/* The final word: a scribbled, slightly menacing warning */}
+            {letter.pps && (
+              <p className="mt-4 -rotate-1 font-hand text-2xl leading-tight font-bold text-cherry">{ink(PPS)}</p>
+            )}
           </div>
         </div>
 
