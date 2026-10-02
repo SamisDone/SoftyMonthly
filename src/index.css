@@ -1,0 +1,227 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Keep shadcn's `dark:` classes inert. The magazine is a light-only print piece. */
+@custom-variant dark (&:is(.dark *));
+
+/* ------------------------------------------------------------------ */
+/*  Palette                                                            */
+/* ------------------------------------------------------------------ */
+:root {
+  --paper: #fff6e9;
+  --ink: #3a2622;
+  --cherry: #e5484d;
+  --butter: #ffd670;
+  --periwinkle: #9ab1ff;
+  --sage: #b8e0c8;
+  --blush: #ffc9c2;
+
+  /* Derived tones */
+  --paper-deep: #f6e4cc;
+  --ink-soft: #6b524c;
+  --desk: #e9dcc6;
+
+  /* shadcn theme → magazine palette */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #fffbf4;
+  --card-foreground: var(--ink);
+  --popover: var(--paper);
+  --popover-foreground: var(--ink);
+  --primary: var(--cherry);
+  --primary-foreground: var(--paper);
+  --secondary: var(--butter);
+  --secondary-foreground: var(--ink);
+  --muted: var(--paper-deep);
+  --muted-foreground: var(--ink-soft);
+  --accent: var(--periwinkle);
+  --accent-foreground: var(--ink);
+  --destructive: var(--cherry);
+  --border: var(--ink);
+  --input: var(--ink);
+  --ring: var(--cherry);
+  --radius: 0.7rem;
+
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-deep: var(--paper-deep);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-cherry: var(--cherry);
+  --color-butter: var(--butter);
+  --color-periwinkle: var(--periwinkle);
+  --color-sage: var(--sage);
+  --color-blush: var(--blush);
+  --color-desk: var(--desk);
+
+  --font-sans: "Nunito", ui-rounded, "Segoe UI", system-ui, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --font-display--font-variation-settings: "SOFT" 100, "WONK" 1;
+  --font-hand: "Caveat", "Segoe Print", cursive;
+  --font-heading: var(--font-display);
+
+  /* Hard offset "printed sticker" shadows, never blurry */
+  --shadow-hard-sm: 2px 2px 0 var(--ink);
+  --shadow-hard: 4px 4px 0 var(--ink);
+  --shadow-hard-lg: 7px 7px 0 var(--ink);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  --animate-wobble: wobble 2.6s ease-in-out infinite;
+  --animate-float: float 4s ease-in-out infinite;
+  --animate-spin-slow: spin 3.2s linear infinite;
+  --animate-eq: eq 0.9s ease-in-out infinite;
+  --animate-scribble: scribble 0.32s ease-in-out infinite;
+
+  /* Individual transform properties (rotate, translate) so these compose with
+     Tailwind's rotate and translate utilities instead of overriding them. */
+  @keyframes wobble {
+    0%, 100% { rotate: var(--tilt, -4deg); }
+    50% { rotate: calc(var(--tilt, -4deg) * -0.6); }
+  }
+  @keyframes float {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -6px; }
+  }
+  @keyframes scribble {
+    0%, 100% { translate: 0 0; rotate: 0deg; }
+    50% { translate: 1.5px -2px; rotate: -7deg; }
+  }
+  @keyframes eq {
+    0%, 100% { transform: scaleY(0.3); }
+    50% { transform: scaleY(1); }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Base                                                               */
+/* ------------------------------------------------------------------ */
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+  html {
+    @apply font-sans;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-desk text-foreground antialiased;
+    overscroll-behavior: none;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 3px solid var(--cherry);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--butter);
+    color: var(--ink);
+  }
+  img {
+    -webkit-user-drag: none;
+    user-select: none;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Magazine textures & helpers                                        */
+/* ------------------------------------------------------------------ */
+/* Paper grain: inline SVG noise, tinted chocolate, multiplied over everything */
+@utility paper-grain {
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .23 0 0 0 0 .15 0 0 0 0 .13 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.16;
+  mix-blend-mode: multiply;
+}
+
+@utility pattern-dots {
+  background-image: radial-gradient(color-mix(in oklab, var(--ink) 16%, transparent) 1.4px, transparent 1.6px);
+  background-size: 18px 18px;
+}
+
+@utility pattern-lined {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 31px,
+    color-mix(in oklab, var(--periwinkle) 55%, transparent) 31px 32px
+  );
+  background-position: 0 14px;
+}
+
+@utility pattern-stripes {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    color-mix(in oklab, var(--ink) 9%, transparent) 0 10px,
+    transparent 10px 20px
+  );
+}
+
+@utility drop-cap {
+  &::first-letter {
+    float: left;
+    font-family: var(--font-display);
+    font-variation-settings: "SOFT" 100, "WONK" 1;
+    font-weight: 800;
+    font-size: 4.1em;
+    line-height: 0.8;
+    padding: 0.06em 0.1em 0 0;
+    color: var(--cherry);
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Respect reduced motion for every CSS animation/transition (Motion handles its own via MotionConfig) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
