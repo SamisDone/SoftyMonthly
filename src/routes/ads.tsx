@@ -45,7 +45,7 @@ function CouponAd({ ad }: { ad: Ad }) {
       <AdLabel />
       <div className={`relative -rotate-1 rounded-3xl border-2 border-ink p-5 shadow-hard-lg ${TONE_BG[ad.tone]}`}>
         <m.div
-          className="absolute -top-5 -right-3 grid size-20 place-items-center bg-cherry text-center font-display text-lg leading-none font-black text-paper [--tilt:14deg] [rotate:var(--tilt)] animate-wobble"
+          className="absolute -top-5 -right-3 grid size-20 place-items-center bg-cherry text-center font-display text-lg leading-none font-black text-paper [--tilt:14deg] rotate-(--tilt) animate-wobble"
           style={{
             clipPath:
               'polygon(50% 0, 61% 12%, 77% 6%, 80% 22%, 96% 25%, 89% 40%, 100% 52%, 87% 62%, 93% 78%, 76% 79%, 70% 95%, 56% 86%, 43% 100%, 35% 85%, 18% 92%, 17% 75%, 2% 70%, 11% 56%, 0 43%, 13% 34%, 7% 18%, 24% 18%, 30% 3%, 43% 12%)',

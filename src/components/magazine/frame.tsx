@@ -91,7 +91,8 @@ export function MagazineFrame() {
     <div className="flex min-h-dvh flex-col items-center justify-center bg-desk pattern-dots sm:p-6">
       <div className="relative isolate flex h-dvh w-full max-w-[430px] flex-col overflow-hidden bg-paper sm:h-[min(880px,calc(100dvh-4.5rem))] sm:rounded-[2.25rem] sm:border-2 sm:border-ink sm:shadow-hard-lg">
         <RunningHeader />
-        <main className="relative flex-1 overflow-hidden">
+        {/* Size container: one-screen pages size themselves with cqh units */}
+        <main className="relative flex-1 overflow-hidden @container-size">
           <PageStage />
         </main>
         <PageNav index={index} prev={prev} next={next} />

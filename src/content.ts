@@ -59,6 +59,12 @@ export const music = {
   label: 'Now playing',
   /** 0 to 100. Soft background level. */
   volume: 30,
+  /**
+   * Try to start the music as soon as the site opens. Browsers only allow sound
+   * after a first tap, so where autoplay is blocked (always on iPhone) it starts
+   * on the first tap, swipe or key press instead.
+   */
+  autoplay: true,
 }
 
 /* ------------------------------------------------------------ */
@@ -83,6 +89,7 @@ export const pageTitles = {
 export const ui = {
   desktopHint: 'psst: the arrow keys flip pages too',
   loading: 'turning the page…',
+  scrollHint: 'scroll for more',
 }
 
 /* ------------------------------------------------------------ */
@@ -90,11 +97,17 @@ export const ui = {
 /* ------------------------------------------------------------ */
 export const cover = {
   photo: {
-    src: '/photos/photo1.jpg', // EDIT: his best photo, portrait orientation works best
+    src: '/photos/photo1.jpg', // EDIT: his best photo. A tall phone photo fills the cover best.
     alt: 'Pratik, looking unreasonably handsome',
-    width: 900,
-    height: 1200,
+    width: 720,
+    height: 1280,
   } satisfies Photo,
+  /**
+   * The cover photo fills the whole page, so very different screen shapes may trim
+   * its edges. This picks the spot to always keep visible: "horizontal% vertical%".
+   * "50% 50%" is the center; "70% 30%" keeps the right side, upper part (his face).
+   */
+  photoFocus: '70% 30%',
   headlines: [
     { kicker: 'Exclusive', text: 'Local man too cute. Scientists baffled.' },
     { kicker: 'p. 07', text: '10 things she loves about him (she ran out of room)' },

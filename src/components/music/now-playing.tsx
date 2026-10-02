@@ -29,7 +29,7 @@ export function NowPlaying({ className }: { className?: string }) {
     <section
       aria-label="Background music"
       className={cn(
-        'flex min-w-0 items-center gap-1.5 rounded-2xl border-2 border-ink bg-butter p-1 shadow-hard-sm [--tilt:2deg] [rotate:var(--tilt)] hover:animate-wobble',
+        'flex min-w-0 items-center gap-1.5 rounded-2xl border-2 border-ink bg-butter p-1 shadow-hard-sm [--tilt:2deg] rotate-(--tilt) hover:animate-wobble',
         className,
       )}
     >

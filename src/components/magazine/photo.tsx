@@ -17,18 +17,27 @@ type PhotoProps = {
   className?: string
   /** For the above-the-fold cover photo: load eagerly with high priority. */
   priority?: boolean
-  /** Crop to this CSS aspect ratio (e.g. "4 / 5"). Defaults to the photo's own. */
+  /**
+   * Deliberately crop to this CSS aspect ratio (e.g. "1 / 1" for polaroids).
+   * Without it the photo always shows whole, in its real shape.
+   */
   aspect?: string
+  /** Fill the parent box (full-bleed), trimming edges as needed; pair with `focus`. */
+  fill?: boolean
+  /** CSS object-position: which part of the photo to keep if the box must trim it. */
+  focus?: string
 }
 
 /**
  * A plain <img> with explicit width/height (no layout shift) that swaps to a
  * colored placeholder block if the file is missing, so the magazine never breaks.
  */
-export function Photo({ photo, className, priority = false, aspect }: PhotoProps) {
+export function Photo({ photo, className, priority = false, aspect, fill = false, focus }: PhotoProps) {
   const [failedSrc, setFailedSrc] = useState<string | null>(null)
   const failed = failedSrc === photo.src
-  const aspectRatio = aspect ?? `${photo.width} / ${photo.height}`
+  // Placeholders use the size declared in content.ts. Real photos keep their own
+  // shape: the width/height attributes only reserve space until the file loads.
+  const placeholderRatio = fill ? undefined : (aspect ?? `${photo.width} / ${photo.height}`)
 
   if (failed) {
     const fileName = photo.src.split('/').pop()
@@ -36,8 +45,8 @@ export function Photo({ photo, className, priority = false, aspect }: PhotoProps
       <div
         role="img"
         aria-label={photo.alt}
-        className={cn('grid place-items-center pattern-stripes text-center', toneFor(photo.src), className)}
-        style={{ aspectRatio }}
+        className={cn('grid place-items-center pattern-stripes text-center', toneFor(photo.src), fill && 'size-full', className)}
+        style={{ aspectRatio: placeholderRatio }}
       >
         <span className="px-3 font-hand text-xl leading-tight text-ink">
           photo goes here
@@ -60,8 +69,8 @@ export function Photo({ photo, className, priority = false, aspect }: PhotoProps
       decoding="async"
       draggable={false}
       onError={() => setFailedSrc(photo.src)}
-      className={cn('block h-auto w-full bg-paper-deep object-cover', className)}
-      style={{ aspectRatio }}
+      className={cn('block w-full bg-paper-deep object-cover', fill ? 'h-full' : 'h-auto', className)}
+      style={{ aspectRatio: aspect, objectPosition: focus }}
     />
   )
 }

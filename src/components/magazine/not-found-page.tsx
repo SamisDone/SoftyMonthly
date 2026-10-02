@@ -18,13 +18,13 @@ const TORN_EDGE = (() => {
 
 export function NotFoundPage() {
   return (
-    <Page tone="periwinkle" dotted className="flex flex-col items-center pt-10 text-center">
-      <PageKicker className="self-start">{notFound.kicker}</PageKicker>
+    <Page tone="periwinkle" dotted fit className="items-center justify-center text-center">
+      <PageKicker className="absolute top-[clamp(0.75rem,3.2cqh,1.5rem)] left-5">{notFound.kicker}</PageKicker>
 
-      <div className="relative mt-8 w-full max-w-xs" style={{ rotate: '-3deg', filter: 'drop-shadow(4px 4px 0 var(--ink))' }}>
+      <div className="relative mt-[clamp(0.75rem,4cqh,2rem)] w-full max-w-xs shrink-0" style={{ rotate: '-3deg', filter: 'drop-shadow(4px 4px 0 var(--ink))' }}>
         <Tape color="butter" rotate={8} className="-top-3 left-6 z-10" />
         <div
-          className="border-2 border-ink bg-paper px-6 pt-8 pb-16"
+          className="border-2 border-ink bg-paper px-6 pt-[clamp(1rem,4cqh,2rem)] pb-[clamp(2.5rem,8cqh,4rem)]"
           style={{ clipPath: TORN_EDGE, borderRadius: '1.5rem 1.5rem 0 0' }}
         >
           <p className="font-display text-7xl leading-none font-black text-cherry">404</p>
@@ -33,10 +33,10 @@ export function NotFoundPage() {
         </div>
       </div>
 
-      <p className="mt-6 max-w-xs text-base font-semibold">{notFound.message}</p>
-      <Star className="mt-4 size-10 animate-float" />
+      <p className="mt-[clamp(0.75rem,3cqh,1.5rem)] max-w-xs shrink-0 text-base font-semibold">{notFound.message}</p>
+      <Star className="mt-[clamp(0.5rem,2cqh,1rem)] size-10 shrink-0 animate-float" />
 
-      <Button asChild size="lg" variant="secondary" className="mt-6">
+      <Button asChild size="lg" variant="secondary" className="mt-[clamp(0.75rem,3cqh,1.5rem)] shrink-0">
         <Link to="/">{notFound.backLabel}</Link>
       </Button>
     </Page>

@@ -65,7 +65,6 @@ function LetterPage() {
       <article className="relative mt-7 -rotate-1 rounded-3xl border-2 border-ink bg-paper pattern-lined px-5 pt-6 pb-7 shadow-hard-lg">
         <Polaroid
           photo={letter.photo}
-          square
           rotate={7}
           tape="periwinkle"
           className="float-right -mt-12 -mr-4 mb-3 ml-3 w-32 p-1.5 [&_figcaption]:text-base"

@@ -7,6 +7,10 @@ const FADE_MS = 2000
 const FADE_STEP_MS = 50
 /** If the player hasn't reported ready by then, give up and hide the sticker. */
 const READY_TIMEOUT_MS = 20_000
+/** How long to wait for an autoplay attempt before assuming the browser blocked it. */
+const AUTOPLAY_CHECK_MS = 2500
+/** Events that count as a user gesture, so the browser lets audio start. */
+const GESTURE_EVENTS = ['pointerup', 'touchend', 'keydown'] as const
 
 function isActivelyPlaying(player: YT.Player) {
   const state = player.getPlayerState()
@@ -21,9 +25,11 @@ export function MusicProvider({ children }: { children: ReactNode }) {
   const [status, setStatus] = useState<MusicStatus>('idle')
   const [shouldLoad, setShouldLoad] = useState(false)
   const [slot, setSlot] = useState<HTMLDivElement | null>(null)
+  /** Autoplay was blocked: start on the visitor's first tap/swipe/key press anywhere. */
+  const [awaitingGesture, setAwaitingGesture] = useState(false)
 
   const playerRef = useRef<YT.Player | null>(null)
-  const wantsPlayRef = useRef(false)
+  const wantsPlayRef = useRef(music.autoplay)
   const needsFadeRef = useRef(false)
   const pausedByHiddenRef = useRef(false)
   const fadeTimerRef = useRef<number | undefined>(undefined)
@@ -55,18 +61,17 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     player.playVideo()
   }, [])
 
-  // Warm up the API when the browser is idle, so the first tap starts music instantly
-  // without competing with the magazine's own first paint.
+  // Load the player as soon as the page itself has loaded, so music can start
+  // right away without competing with the cover photo and fonts.
   useEffect(() => {
     if (shouldLoad) return
     const load = () => setShouldLoad(true)
-    // Safari has no requestIdleCallback
-    if (typeof window.requestIdleCallback === 'function') {
-      const id = window.requestIdleCallback(load, { timeout: 3000 })
-      return () => window.cancelIdleCallback(id)
+    if (document.readyState === 'complete') {
+      load()
+      return
     }
-    const id = window.setTimeout(load, 1500)
-    return () => window.clearTimeout(id)
+    window.addEventListener('load', load, { once: true })
+    return () => window.removeEventListener('load', load)
   }, [shouldLoad])
 
   // Create the player inside the sticker's slot
@@ -75,6 +80,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
 
     let cancelled = false
     let player: YT.Player | undefined
+    let autoplayCheck: number | undefined
     const readyTimeout = window.setTimeout(() => {
       if (!cancelled && !playerRef.current) setStatus('error')
     }, READY_TIMEOUT_MS)
@@ -114,6 +120,13 @@ export function MusicProvider({ children }: { children: ReactNode }) {
               if (wantsPlayRef.current) {
                 wantsPlayRef.current = false
                 play(target)
+                // Browsers block sound until the visitor interacts (iPhones always do).
+                // If it didn't start, or YouTube fell back to silent playback, wait for
+                // the first tap/swipe/key press instead.
+                autoplayCheck = window.setTimeout(() => {
+                  if (cancelled) return
+                  if (target.getPlayerState() !== api.PlayerState.PLAYING || target.isMuted()) setAwaitingGesture(true)
+                }, AUTOPLAY_CHECK_MS)
               }
             },
             onStateChange: ({ target, data }) => {
@@ -145,6 +158,7 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     return () => {
       cancelled = true
       window.clearTimeout(readyTimeout)
+      window.clearTimeout(autoplayCheck)
       stopFade()
       player?.destroy()
       playerRef.current = null
@@ -178,11 +192,32 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     // Calling playVideo synchronously inside the tap handler is what lets
     // mobile browsers allow sound. If not ready yet, play as soon as it is.
     if (player) {
-      if (!isActivelyPlaying(player)) play(player)
+      if (!isActivelyPlaying(player)) {
+        play(player)
+      } else if (player.isMuted()) {
+        // YouTube was playing silently after a blocked autoplay: restart with sound
+        player.seekTo(0, true)
+        player.unMute()
+        fadeIn(player)
+      }
     } else {
       wantsPlayRef.current = true
     }
-  }, [play])
+  }, [play, fadeIn])
+
+  // Blocked autoplay: the first gesture anywhere on the page starts the music.
+  // start() runs synchronously inside the event, which is what unlocks audio.
+  useEffect(() => {
+    if (!awaitingGesture) return
+    const onGesture = () => {
+      setAwaitingGesture(false)
+      start()
+    }
+    for (const type of GESTURE_EVENTS) window.addEventListener(type, onGesture, { capture: true })
+    return () => {
+      for (const type of GESTURE_EVENTS) window.removeEventListener(type, onGesture, { capture: true })
+    }
+  }, [awaitingGesture, start])
 
   const toggle = useCallback(() => {
     const player = playerRef.current

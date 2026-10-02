@@ -52,7 +52,7 @@ function PhotosPage() {
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 18 }}
               >
-                <Polaroid photo={photo} square rotate={rotate} tape={tape} />
+                <Polaroid photo={photo} rotate={rotate} tape={tape} />
               </m.button>
             </li>
           )
@@ -69,8 +69,9 @@ function PhotosPage() {
         <DialogContent className="max-w-[min(26rem,calc(100%-2rem))] rotate-[-1deg] bg-[#fffdf8] p-3 pb-2">
           {openPhoto && (
             <>
-              <div className="overflow-hidden rounded-xl border-2 border-ink">
-                <Photo photo={openPhoto} className="max-h-[65dvh]" />
+              {/* Whole photo, never cropped: tall photos shrink to fit the screen */}
+              <div className="mx-auto w-fit max-w-full overflow-hidden rounded-xl border-2 border-ink">
+                <Photo photo={openPhoto} className="max-h-[65dvh] w-auto max-w-full" />
               </div>
               <DialogTitle className="text-center font-hand text-3xl font-bold">
                 {openPhoto.caption ?? openPhoto.alt}
